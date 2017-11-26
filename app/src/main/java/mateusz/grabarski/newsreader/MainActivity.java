@@ -4,11 +4,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import mateusz.grabarski.newsreader.model.GetArticlesResponse;
 import mateusz.grabarski.newsreader.model.NewsArticle;
+import mateusz.grabarski.newsreader.networking.NewsAPI;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,5 +41,19 @@ public class MainActivity extends AppCompatActivity {
         NewsAdapter adapter = new NewsAdapter(NewsStore.getNewsArticles());
 
         newsList.setAdapter(adapter);
+
+        Call<GetArticlesResponse> call = NewsAPI.getApi().getArticles("abc-news");
+        call.enqueue(new Callback<GetArticlesResponse>() {
+            @Override
+            public void onResponse(Call<GetArticlesResponse> call, Response<GetArticlesResponse> response) {
+                GetArticlesResponse getArticlesResponse = response.body();
+                Log.d(MainActivity.class.getSimpleName(), "onResponse: ");
+            }
+
+            @Override
+            public void onFailure(Call<GetArticlesResponse> call, Throwable t) {
+
+            }
+        });
     }
 }
