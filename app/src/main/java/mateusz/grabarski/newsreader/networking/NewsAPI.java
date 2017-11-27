@@ -13,8 +13,6 @@ import retrofit2.http.Query;
 
 public class NewsAPI {
 
-    // sources=abc-news&apiKey=08ec34bb14214a74888373e82bcfd2a1
-
     public static final String API_KEY = "08ec34bb14214a74888373e82bcfd2a1";
     public static final String API_PATH = "https://newsapi.org/v2/";
 

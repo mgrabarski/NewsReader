@@ -23,7 +23,7 @@ public class Article {
     private String url;
     @SerializedName("urlToImage")
     @Expose
-    private Object urlToImage;
+    private String urlToImage;
     @SerializedName("publishedAt")
     @Expose
     private String publishedAt;
@@ -45,7 +45,7 @@ public class Article {
      * @param description
      * @param url
      */
-    public Article(Source source, String author, String title, String description, String url, Object urlToImage, String publishedAt) {
+    public Article(Source source, String author, String title, String description, String url, String urlToImage, String publishedAt) {
         super();
         this.source = source;
         this.author = author;
@@ -96,11 +96,11 @@ public class Article {
         this.url = url;
     }
 
-    public Object getUrlToImage() {
+    public String getUrlToImage() {
         return urlToImage;
     }
 
-    public void setUrlToImage(Object urlToImage) {
+    public void setUrlToImage(String urlToImage) {
         this.urlToImage = urlToImage;
     }
 

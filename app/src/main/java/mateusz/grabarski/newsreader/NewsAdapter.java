@@ -11,7 +11,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import mateusz.grabarski.newsreader.model.NewsArticle;
+import mateusz.grabarski.newsreader.model.Article;
+import mateusz.grabarski.newsreader.utils.DateUtils;
 
 /**
  * Created by MGrabarski on 25.11.2017.
@@ -19,9 +20,9 @@ import mateusz.grabarski.newsreader.model.NewsArticle;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
-    private List<NewsArticle> newsArticles;
+    private List<Article> newsArticles;
 
-    public NewsAdapter(List<NewsArticle> newsArticles) {
+    public NewsAdapter(List<Article> newsArticles) {
         this.newsArticles = newsArticles;
     }
 
@@ -33,17 +34,17 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        NewsArticle article = newsArticles.get(position);
+        Article article = newsArticles.get(position);
 
         Picasso.with(holder.newsImage.getContext())
-                .load(article.getImageUrl())
+                .load(article.getUrlToImage())
                 .fit()
                 .centerCrop()
                 .into(holder.newsImage);
 
         holder.title.setText(article.getTitle());
-        holder.time.setText(article.getTime());
-        holder.content.setText(article.getDetails());
+        holder.time.setText(DateUtils.formatApiDate(article.getPublishedAt()));
+        holder.content.setText(article.getDescription());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
