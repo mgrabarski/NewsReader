@@ -1,10 +1,15 @@
 package mateusz.grabarski.newsreader;
 
+import android.content.Intent;
+import android.net.Uri;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 
 import mateusz.grabarski.newsreader.model.GetArticlesResponse;
 import mateusz.grabarski.newsreader.networking.NewsAPI;
@@ -15,6 +20,7 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView newsList;
+    private CoordinatorLayout mCoordinatorLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,10 +30,14 @@ public class MainActivity extends AppCompatActivity {
         newsList = findViewById(R.id.activity_main_rv);
         newsList.setLayoutManager(new LinearLayoutManager(this));
 
+        mCoordinatorLayout = findViewById(R.id.activity_main_coordinator_layout);
+
         Call<GetArticlesResponse> call = NewsAPI.getApi().getArticles("abc-news");
         call.enqueue(new Callback<GetArticlesResponse>() {
             @Override
             public void onResponse(Call<GetArticlesResponse> call, Response<GetArticlesResponse> response) {
+
+                showAPISnack();
 
                 NewsStore.setNewsArticles(response.body().getArticles());
 
@@ -41,5 +51,19 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void showAPISnack() {
+        Snackbar.make(mCoordinatorLayout, "Powered by NewsApi.org ", Snackbar.LENGTH_LONG)
+                .setAction("Visit", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        displayNewsApi();
+                    }
+                }).show();
+    }
+
+    private void displayNewsApi() {
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://newsapi.org")));
     }
 }

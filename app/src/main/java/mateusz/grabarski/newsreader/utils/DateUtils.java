@@ -3,6 +3,7 @@ package mateusz.grabarski.newsreader.utils;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by MGrabarski on 27.11.2017.
@@ -14,8 +15,8 @@ public class DateUtils {
         String inputDateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'";
         String outDateFormat = "EEE, d MM yyyy HH:mm";
 
-        SimpleDateFormat inputFormat = new SimpleDateFormat(inputDateFormat);
-        SimpleDateFormat outputFormat = new SimpleDateFormat(outDateFormat);
+        SimpleDateFormat inputFormat = new SimpleDateFormat(inputDateFormat, Locale.getDefault());
+        SimpleDateFormat outputFormat = new SimpleDateFormat(outDateFormat, Locale.getDefault());
 
         try {
             Date inputDate = inputFormat.parse(apiDate);
