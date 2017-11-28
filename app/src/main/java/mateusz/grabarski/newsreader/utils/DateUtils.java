@@ -12,6 +12,10 @@ import java.util.Locale;
 public class DateUtils {
 
     public static String formatApiDate(String apiDate) {
+
+        if (apiDate == null)
+            return null;
+
         String inputDateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'";
         String outDateFormat = "EEE, d MM yyyy HH:mm";
 
