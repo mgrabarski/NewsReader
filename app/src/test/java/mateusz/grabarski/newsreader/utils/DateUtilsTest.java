@@ -1,7 +1,8 @@
 package mateusz.grabarski.newsreader.utils;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import java.text.ParseException;
 
 import static org.junit.Assert.*;
 
@@ -10,8 +11,10 @@ import static org.junit.Assert.*;
  */
 public class DateUtilsTest {
 
-    String correctInputDate1 = "2017-11-28T13:00:30Z";
-    String correctOutPutDate1 = "Wt, 28 11 2017 13:00";
+    private String correctInputDate1 = "2017-11-28T13:00:30Z";
+    private String correctOutPutDate1 = "Wt, 28 11 2017 13:00";
+
+    String incorrectInputDate = "2017-11-28T13";
 
     @Test
     public void formatApiDate_correctDate_outputCorrectDate() {
@@ -23,5 +26,10 @@ public class DateUtilsTest {
     @Test
     public void formatApiDate_nullInput_outputNull() {
         assertNull(DateUtils.formatApiDate(null));
+    }
+
+    @Test(expected = ParseException.class)
+    public void formatApiDate_incorrectInputDate_returnsSameString() throws Exception {
+        DateUtils.formatApiDate(incorrectInputDate);
     }
 }

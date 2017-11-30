@@ -16,13 +16,13 @@ public class DateUtils {
         if (apiDate == null)
             return null;
 
-        String inputDateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'";
-        String outDateFormat = "EEE, d MM yyyy HH:mm";
-
-        SimpleDateFormat inputFormat = new SimpleDateFormat(inputDateFormat, Locale.getDefault());
-        SimpleDateFormat outputFormat = new SimpleDateFormat(outDateFormat, Locale.getDefault());
-
         try {
+            String inputDateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+            String outDateFormat = "EEE, d MM yyyy HH:mm";
+
+            SimpleDateFormat inputFormat = new SimpleDateFormat(inputDateFormat, Locale.getDefault());
+            SimpleDateFormat outputFormat = new SimpleDateFormat(outDateFormat, Locale.getDefault());
+
             Date inputDate = inputFormat.parse(apiDate);
             return outputFormat.format(inputDate);
         } catch (ParseException e) {

@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import mateusz.grabarski.newsreader.model.GetArticlesResponse;
 import mateusz.grabarski.newsreader.networking.NewsAPI;
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView newsList;
     private CoordinatorLayout mCoordinatorLayout;
+    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
 
         newsList = findViewById(R.id.activity_main_rv);
         newsList.setLayoutManager(new LinearLayoutManager(this));
+        mProgressBar = findViewById(R.id.activity_main_progress_bar);
+
 
         mCoordinatorLayout = findViewById(R.id.activity_main_coordinator_layout);
 
@@ -36,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
         call.enqueue(new Callback<GetArticlesResponse>() {
             @Override
             public void onResponse(Call<GetArticlesResponse> call, Response<GetArticlesResponse> response) {
+
+                mProgressBar.setVisibility(View.GONE);
 
                 showAPISnack();
 
@@ -48,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<GetArticlesResponse> call, Throwable t) {
-
+                mProgressBar.setVisibility(View.GONE);
             }
         });
     }
